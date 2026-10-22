@@ -1,4 +1,4 @@
-import { config } from "../config";
+import { config } from "../config/index.js";
 import { CronJob } from "cron";
 import http from "node:http"
 import https from "node:https"
