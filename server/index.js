@@ -1,13 +1,16 @@
-import express, { urlencoded } from "express"
+import express, { application, urlencoded } from "express"
 import cors from "cors"
 import fs from "fs"
 import path from "path"
 import { clerkMiddleware } from "@clerk/express"
 import { corsConfig } from "./src/config/index.js"
+import clerkWebhook from "./webhooks/clerk.webhook.js"
 
 const app = express()
 
 const publicDir = path.join(process.cwd(), "public")
+
+app.use("/api/webhooks/clerk", express.raw({ type: "application/json" }), clerkWebhook)
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))

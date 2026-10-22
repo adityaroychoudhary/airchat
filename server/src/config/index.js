@@ -8,6 +8,7 @@ export const config = {
   port: process.env.PORT || 3000,
   clientUrl: process.env.CLIENT_URL || "https://airchat.localhost",
   mongoUri: process.env.MONGO_URI,
+  clerkWebhookSecret: process.env.CLERK_WEBHOOK_SIGNING_SECRET
 };
 
 export const corsConfig = {
