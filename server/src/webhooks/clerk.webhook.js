@@ -1,7 +1,7 @@
 import express from "express";
-import User from "../src/models/user.model.js";
+import User from "../models/user.model.js"
 import { verifyWebhook } from "@clerk/backend/webhooks";
-import { config } from "../src/config/index.js";
+import { config } from "../config/index.js";
 
 const router = express.Router();
 
