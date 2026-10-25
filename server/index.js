@@ -6,6 +6,7 @@ import { clerkMiddleware } from "@clerk/express";
 import { corsConfig } from "./src/config/index.js";
 import clerkWebhook from "./src/webhooks/clerk.webhook.js";
 import authRoutes from "./src/routes/auth.route.js";
+import messageRoutes from "./src/routes/message.route.js";
 
 const app = express();
 
@@ -17,6 +18,9 @@ app.use(
   clerkWebhook,
 );
 app.use("/api/auth", authRoutes);
+app.use("/api/messages", messageRoutes);
+
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors(corsConfig));
