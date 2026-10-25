@@ -1,7 +1,7 @@
 import express from "express"
 import path from "node:path"
 import { config } from "./src/config/index.js";
-import { app } from "./index.js"
+import { app, server } from "./src/lib/socket.js";
 import { connectDB } from "./src/lib/db.js";
 import job from "./src/lib/cron.js";
 
@@ -15,7 +15,7 @@ app.get("/{*splat}", (req, res) => {
   res.sendFile(path.join(publicDir, "index.html"))
 })
 
-app.listen(config.port, () => {
+server.listen(config.port, () => {
   connectDB()
   console.log(`Server is running on port: ${config.port}`)
 

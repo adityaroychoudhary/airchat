@@ -7,8 +7,7 @@ import { corsConfig } from "./src/config/index.js";
 import clerkWebhook from "./src/webhooks/clerk.webhook.js";
 import authRoutes from "./src/routes/auth.route.js";
 import messageRoutes from "./src/routes/message.route.js";
-
-const app = express();
+import { app } from "./src/lib/socket.js";
 
 const publicDir = path.join(process.cwd(), "public");
 
@@ -34,5 +33,3 @@ if (fs.existsSync(publicDir)) {
     res.sendFile(path.join(publicDir, "index.html"), (err) => next(err));
   });
 }
-
-export { app };
