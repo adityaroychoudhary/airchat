@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useState } from "react";
 import { DEFAULT_THEME_PRESET_ID } from "../data/heroUiThemePresets.js";
-import { applyThemePresetToDocument, isValidThemePreset, ThemeContext } from "./theme";
+import { applyThemePresetToDocument, isValidThemePreset, ThemeContext } from "./theme.js";
 
 function getSystemTheme() {
   if (typeof window === "undefined") return "light";

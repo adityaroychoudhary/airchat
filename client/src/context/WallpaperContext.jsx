@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { frameStyleFromUrl, getWallpaperById } from "../data/wallpapers";
-import { WallpaperContext } from "./wallpaper";
+import { frameStyleFromUrl, getWallpaperById } from "../data/wallpapers.js";
+import { WallpaperContext } from "./wallpaper.js";
 
 const STORAGE_KEY = "chat-wallpaper-id";
 
