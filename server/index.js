@@ -11,6 +11,10 @@ import { app } from "./src/lib/socket.js";
 
 const publicDir = path.join(process.cwd(), "public");
 
+app.get("/health", (req, res) => {
+  res.status(200).json({ ok: true });
+});
+
 app.use(
   "/api/webhooks/clerk",
   express.raw({ type: "application/json" }),

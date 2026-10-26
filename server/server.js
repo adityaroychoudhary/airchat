@@ -1,19 +1,8 @@
-import express from "express"
-import path from "node:path"
 import { config } from "./src/config/index.js";
 import { app, server } from "./src/lib/socket.js";
 import { connectDB } from "./src/lib/db.js";
 import job from "./src/lib/cron.js";
-
-app.get("/health", (req, res) => {
-  res.status(200).json({ ok: true })
-})
-
-const publicDir = path.join(process.cwd(), "public")
-app.use(express.static(publicDir))
-app.get("/{*splat}", (req, res) => {
-  res.sendFile(path.join(publicDir, "index.html"))
-})
+import "./index.js";
 
 server.listen(config.port, () => {
   connectDB()
