@@ -6,12 +6,13 @@ import { Route, Routes, Navigate } from "react-router";
 import ChatPage from "./pages/ChatPage.jsx";
 import AuthPage from "./pages/AuthPage.jsx";
 import { useAuth } from "@clerk/react";
+import PageLoader from "./components/PageLoader.jsx";
 
 export default function App() {
 
   const { isSignedIn, isLoaded } = useAuth();
 
-  if (!isLoaded) return <p>loading...</p>
+  if (!isLoaded) return <PageLoader />
   return (
     <ThemeProvider>
       <WallpaperProvider>
