@@ -13,7 +13,9 @@ export const config = {
 };
 
 export const corsConfig = {
-  origin: config.clientUrl,
+  // Portless serves the Vite dev app at this origin; keep the configured
+  // deployment origin too so the same server config works in production.
+  origin: [config.clientUrl, "https://airchat.local"],
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,

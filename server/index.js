@@ -15,6 +15,12 @@ app.get("/health", (req, res) => {
   res.status(200).json({ ok: true });
 });
 
+// CORS and Clerk must run before routes that use Clerk's getAuth().
+app.use(cors(corsConfig));
+app.use(clerkMiddleware());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 app.use(
   "/api/webhooks/clerk",
   express.raw({ type: "application/json" }),
@@ -22,13 +28,6 @@ app.use(
 );
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
-
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cors(corsConfig));
-
-app.use(clerkMiddleware());
 
 if (fs.existsSync(publicDir)) {
   app.use(express.static(publicDir));
