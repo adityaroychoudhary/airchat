@@ -8,6 +8,8 @@ export const config = {
   port: process.env.PORT || 3000,
   clientUrl: process.env.CLIENT_URL || "https://airchat.localhost",
   mongoUri: process.env.MONGO_URI,
+  clerkPublishableKey: process.env.CLERK_PUBLISHABLE_KEY,
+  clerkSecretKey: process.env.CLERK_SECRET_KEY,
   clerkWebhookSecret: process.env.CLERK_WEBHOOK_SIGNING_SECRET,
   imagekitPrivateKey: process.env.IMAGEKIT_PRIVATE_KEY,
 };

@@ -12,7 +12,6 @@ export function ChatComposer() {
   const sendTextMessage = useChatStore((state) => state.sendTextMessage);
   const setComposerText = useChatStore((state) => state.setComposerText);
   const { activeConversationId } = useSelectedConversation();
-  const { playRandomKeyStrokeSound } = useKeyboardSound();
   const mediaInputRef = useRef(null);
 
   const playSoundIfEnabled = () => {
@@ -77,7 +76,7 @@ export function ChatComposer() {
         <TextArea
           fullWidth
           variant="secondary"
-          placeholder="iMessage"
+          placeholder="Send a message"
           rows={1}
           value={composerText}
           onChange={handleComposerTextChange}

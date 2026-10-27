@@ -1,10 +1,11 @@
 import User from "../models/user.model.js";
 import Message from "../models/message.model.js";
-import { getReceiverSocketId } from "../lib/socket.js";
+import { getReceiverSocketId, io } from "../lib/socket.js";
+import { hasImagekitCredentials, uploadMedia } from "../lib/imagekit.js";
 
 export async function getUsersForSidebar(req, res) {
   try {
-    const loggedInUserId = req.user.id;
+    const loggedInUserId = req.user._id;
 
     const filteredUsers = await User.find({ _id: { $ne: loggedInUserId } }).select("-clerkId")
 
@@ -18,7 +19,7 @@ export async function getUsersForSidebar(req, res) {
 
 export async function getConversationsForSidebar(req, res) {
   try {
-    const loggedInUserId = req.user.id;
+    const loggedInUserId = req.user._id;
 
     const converstations = await Message.aggregate([
       { $match: { $or: [{ senderId: loggedInUserId }, { receiverId: loggedInUserId }] } },
@@ -69,11 +70,11 @@ export async function sendMessage(req, res) {
     let videoUrl;
 
     if (req.file) {
-      if (!hasImageKitConfig()) {
+      if (!hasImagekitCredentials()) {
         return res.status(500).json({ message: "Media upload is not configured" });
       }
 
-      const url = await uploadChatMedia(req.file);
+      const url = await uploadMedia(req.file);
       if (req.file.mimetype.startsWith("video/")) videoUrl = url;
       else imageUrl = url;
     }
@@ -96,7 +97,7 @@ export async function sendMessage(req, res) {
 
     res.status(201).json(newMessage);
   } catch (error) {
-    console.error("Error in sendMessage:", error.message);
+    console.error("Error in sendMessage:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 }

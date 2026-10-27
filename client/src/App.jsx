@@ -7,11 +7,17 @@ import AuthPage from "./pages/AuthPage.jsx";
 import { useAuth } from "@clerk/react";
 import PageLoader from "./components/PageLoader.jsx";
 import { useAuthStore } from "./store/useAuthStore.js";
+import { setTokenProvider } from "./lib/axios.js";
 import { Toaster } from "react-hot-toast"
 
 export default function App() {
 
   const { isSignedIn, isLoaded, getToken } = useAuth();
+
+  useEffect(() => {
+    setTokenProvider(isSignedIn ? getToken : null);
+    return () => setTokenProvider(null);
+  }, [getToken, isSignedIn]);
 
   // Select primitive state only; action functions are stable and can be read
   // from Zustand's store API without creating a new snapshot object.

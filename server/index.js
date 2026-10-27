@@ -3,7 +3,7 @@ import cors from "cors";
 import fs from "fs";
 import path from "path";
 import { clerkMiddleware } from "@clerk/express";
-import { corsConfig } from "./src/config/index.js";
+import { config, corsConfig } from "./src/config/index.js";
 import clerkWebhook from "./src/webhooks/clerk.webhook.js";
 import authRoutes from "./src/routes/auth.route.js";
 import messageRoutes from "./src/routes/message.route.js";
@@ -17,7 +17,10 @@ app.get("/health", (req, res) => {
 
 // CORS and Clerk must run before routes that use Clerk's getAuth().
 app.use(cors(corsConfig));
-app.use(clerkMiddleware());
+app.use(clerkMiddleware({
+  publishableKey: config.clerkPublishableKey,
+  secretKey: config.clerkSecretKey,
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

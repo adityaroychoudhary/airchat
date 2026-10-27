@@ -34,7 +34,7 @@ export const useChatStore = create(
                 : null,
           }));
         } catch (error) {
-          console.log("Error in get Users", error.message);
+          console.error("Error in getUsers:", error.response?.data?.message || error.message);
         } finally {
           set({ isUsersLoading: false });
         }
@@ -46,7 +46,7 @@ export const useChatStore = create(
           const res = await axiosInstance.get("/messages/conversations");
           set({ conversations: res.data });
         } catch (error) {
-          console.log("Error in getConversations", error.message);
+          console.error("Error in getConversations:", error.response?.data?.message || error.message);
         } finally {
           set({ isConversationsLoading: false });
         }
@@ -142,7 +142,7 @@ export const useChatStore = create(
       },
     }),
     {
-      name: "imessage-storage",
+      name: "airchat-storage",
       partialize: (state) => ({ isSoundEnabled: state.isSoundEnabled }),
     },
   ),

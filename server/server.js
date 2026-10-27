@@ -4,9 +4,10 @@ import { connectDB } from "./src/lib/db.js";
 import job from "./src/lib/cron.js";
 import "./index.js";
 
-server.listen(config.port, () => {
-  connectDB()
+connectDB().then(() => {
+  server.listen(config.port, () => {
   console.log(`Server is running on port: ${config.port}`)
 
   if (process.env.NODE_ENV === "production") job.start()
+  })
 })
